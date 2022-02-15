@@ -1,0 +1,58 @@
+<h1 class="text-3xl pb-4">Repository preview</h1>
+<div>
+  <div *ngIf="!repository && !error">
+    ⏳ Loading...
+  </div>
+  <div *ngIf="repository" class="py-4">
+    <div class="flex justify-between items-center">
+      <div class="text-blue-400 focus:underline text-lg flex items-center">
+        <img
+          class="w-12 rounded-full mr-4"
+          [src]="repository.owner.avatarUrl"
+          alt="repository owner logo"
+        />
+        {{ repository.owner.login }} /&nbsp;<b>{{ repository.name }}</b>
+      </div>
+      <div>
+        <span class="text-lg text-yellow-300">⭐</span>
+        {{ repository.stargazerCount }}
+        <span class="text-lg text-yellow-300">👀</span>
+        {{ repository.watchers.totalCount }}
+        <span class="text-lg text-yellow-300">🍴</span>
+        {{ repository.forkCount }}
+      </div>
+    </div>
+
+    <p class="mt-2">{{ repository.description }}</p>
+    <ul class="mt-4 flex text-sm">
+      <li class="border-gray-500 border rounded-md m-1 p-2 flex-1">
+        <div class="text-gray-300">Default branch</div>
+        <div class="font-bold">{{ repository.defaultBranchRef.name }}</div>
+      </li>
+      <li class="border-gray-500 border rounded-md m-1 p-2 flex-1">
+        <div class="text-gray-300">Primary language</div>
+        <div class="font-bold">{{ repository.primaryLanguage.name }}</div>
+      </li>
+      <li
+        *ngIf="repository.homepageUrl"
+        class="border-gray-500 border rounded-md m-1 p-2 flex-1"
+      >
+        <div class="text-gray-300">Homepage url</div>
+        <a
+          [href]="repository.homepageUrl"
+          class="font-bold text-blue-400 hover:underline block"
+          >{{ repository.homepageUrl }}</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="error" class="py-4 text-red-500">{{ error }} 😥</div>
+  <button
+    [disabled]="loading"
+    [class.opacity-50]="loading"
+    routerLink="/search"
+    class="hover:bg-blue-900 border text-blue-400 border-blue-400 rounded-md px-4 py-2 text-white mt-4"
+  >
+    Back to search
+  </button>
+</div>
